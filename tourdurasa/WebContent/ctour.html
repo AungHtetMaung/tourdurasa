@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Urasa City">
+<meta name="author" content="Aung Htet Maung">
+
+<title>Urasa Tour</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+<!-- Custom styles for this template -->
+<link href="css/1-col-portfolio.css" rel="stylesheet">
+<script type="text/javascript"
+	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="js/gtranslate.js"></script>
+<script src="https://apis.google.com/js/api.js"></script>
+<!-- Include the API client and Google+ client. -->
+<script src="https://plus.google.com/js/client:platform.js" async defer></script>
+
+
+<script src="js/dom.js"></script>
+<script src="js/util.js"></script>
+<!-- For Map
+		          To be change the API key for its own google account
+		      -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src='http://maps.google.com/maps/api/js?key=AIzaSyC51n-Mqgn7fbB3bV_4s_YWJIVno6LAZAk&libraries=places&region=JP'></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/locationpicker.jquery.js"></script>
+<script src="js/gmapcontroller.js"></script>
+<title>Urasa Tour</title>
+</head>
+<body class='ctour_body'>
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><span style="font-size: 2em">U</span>rasa
+						<small>Travel Bloggers</small></a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="index.html">Home</a></li>
+					<li><a href="ctour.html">Share a tour</a></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Services <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="ctour.html">Create A Tour Package</a></li>
+							<li><a href="#">Page 1-2</a></li>
+							<li><a href="#">Page 1-3</a></li>
+						</ul></li>
+					<li><a href="#">Contact</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><span id='google_translate_element'></span></li>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+	<!-- Navigation -->
+
+	<!-- Map Input -->
+	<div class="container">
+
+		<!-- Map Input End -->
+		<!-- Selection Map -->
+
+		<div class="row mapdiv">
+			<div class="col-6 col-md-4">
+				<div id="somecomponent" class="map"></div>
+				<div>
+					<br> Location: <input type="text" id="somecomponent-address"
+						style="width: 200px" /><br> Move the pin point to desire
+					location to include as a part of a trip. You can type the place of
+					the name in the text box.
+				</div>
+			</div>
+			<div class="col-6 col-md-4">
+				<div class="map" id="pano"></div>
+				<div>
+					<br>
+					<p align="center">
+						<button id="route_add">Add</button>
+					</p>
+					Be ensure the place is where you would like to add in the trip and
+					press add.
+				</div>
+			</div>
+			<div class="col-6 col-md-4">
+				<div id="somecomponent2" class="map"></div>
+				<div>
+					<br>
+					<p align="center">
+						<button id="draw_route">Draw a route</button>
+					</p>
+					The pins are showing in seniority of your trip places. If you wish
+					to delete a pin, click on a pin.
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="container">
+		<div class="row centered">
+			<p style="font-size: 1.5em">
+				Link the photo with google map,upload the photo in google map and
+				paste the link in the text box.
+				<button type="button" class="btn btn-primary" id='goToGoogle'>Browse</button>
+			</p>
+			<input class="form-control input-sm" id="googlePhotoLink" type="text" />
+		</div>
+	</div>
+	<hr>
+
+	<div class="container">
+		<div class="row centered">
+			<p style="font-size: 1.5em">Tell the story about the trip</p>
+		</div>
+		<div class="row centered">
+			<textarea class="form-control" rows="10" cols='100'
+				data-validation="required" id='story'></textarea>
+		</div>
+	</div>
+
+	<hr>
+	<div class="container">
+		<div class="row centered">
+			<p style="font-size: 1.5em">How could we reach there?</p>
+		</div>
+		<div class="row centered">
+			<div class='col-md-1'>
+				<button class="fa fa-train" style="font-size: 48px; color: black"
+					id='train' onclick="faClick(this.id)"></button>
+				Train
+			</div>
+			<div class='col-md-1'>
+				<button class="fa fa-bus" style="font-size: 48px; color: black"
+					id='bus' onclick="faClick(this.id)"></button>
+				Bus
+			</div>
+			<div class='col-md-1'>
+				<button class="fa fa-taxi" style="font-size: 48px; color: black"
+					id='taxi' onclick="faClick(this.id)"></button>
+				Taxi
+			</div>
+			<div class='col-md-1'>
+				<button class="fa fa-car" style="font-size: 48px; color: black"
+					id='car' onclick="faClick(this.id)"></button>
+				Car
+			</div>
+			<div class='col-md-1'>
+				<button class="fa fa-motorcycle"
+					style="font-size: 48px; color: black" id='motorcycle'
+					onclick="faClick(this.id)"></button>
+				Motorcycle
+			</div>
+			<div class='col-md-1'>
+				<button class="fa fa-bicycle" style="font-size: 48px; color: black"
+					id='bicycle' onclick="faClick(this.id)"></button>
+				Bicycle
+			</div>
+			<div class='col-md-1'>
+				<button class="fa fa-street-view"
+					style="font-size: 48px; color: black" id='walk'
+					onclick="faClick(this.id)"></button>
+				Walking
+			</div>
+		</div>
+	</div>
+
+	<hr>
+	<div class="container">
+		<div class="row centered">
+			<p style="font-size: 1.5em">Tell me little more about you,</p>
+		</div>
+		<div class="row centered">
+			<textarea class="form-control" rows="5" cols='100' id='aboutAuthor'></textarea>
+		</div>
+	</div>
+
+	<hr>
+	<div class="container">
+		<div class="row centered">
+			<button class="g-signin" data-scope="email"
+				data-clientid="24492359185-ejn0mks9fon7opvnnbrekb4n9kv6fli9.apps.googleusercontent.com"
+				data-callback="onSignInCallback" data-theme="dark"
+				data-cookiepolicy="single_host_origin"></button>
+			<p style="font-size: 1.5em">
+				Hello, <span id='authorName'></span><span id = 'authorPhoto'></span>
+			</p>
+			Reader might contact you via email, <span id='email'></span>. Is
+			there another way to reach you,
+		</div>
+		<div class="row no-gutters">
+			<textarea class="form-control" rows="5" cols='100'
+				id='connectionAuthor'></textarea>
+			<br>
+			<p align="center">
+				<button class='btn btn-success' style="font-size: 30px" id='submit'>Come on, Let's go on a tour.</button>
+			</p>
+			<button id="signin-button" onclick='handleSignInClick()'>Sign
+				in</button>
+			<button id="signout-button" onclick="handleSignOutClick()">Sign
+				out</button>
+
+		</div>
+	</div>
+
+	<!-- Selection Map -->
+	<input type="text" id="somecomponent-lat" class='location' />
+	<input type="text" id="somecomponent-lon" class='location' />
+	<!-- <button id="drop" onclick="drop()">Drop Markers</button>-->
+
+	<footer class="py-5 bg-dark">
+		<div class="footer">
+			<p class="m-0 text-center text-white">Copyright &copy; SnowBit
+				Soft.</p>
+		</div>
+	</footer>
+	<script>
+		valueRangeBody = '';
+
+		function initClient() {
+			var API_KEY = 'AIzaSyC51n-Mqgn7fbB3bV_4s_YWJIVno6LAZAk'; // TODO: Update placeholder with desired API key.
+			var CLIENT_ID = '24492359185-ejn0mks9fon7opvnnbrekb4n9kv6fli9.apps.googleusercontent.com'; // TODO: Update placeholder with desired client ID.
+
+			// TODO: Authorize using one of the following scopes:
+			//   'https://www.googleapis.com/auth/drive'
+			//   'https://www.googleapis.com/auth/drive.file'
+			//   'https://www.googleapis.com/auth/spreadsheets'
+			var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
+
+			gapi.client
+					.init(
+							{
+								'apiKey' : API_KEY,
+								'clientId' : CLIENT_ID,
+								'scope' : SCOPE,
+								'discoveryDocs' : [ 'https://sheets.googleapis.com/$discovery/rest?version=v4' ],
+							})
+					.then(
+							function() {
+								gapi.auth2.getAuthInstance().isSignedIn
+										.listen(updateSignInStatus);
+								updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn
+										.get());
+								console.log('Signed In!');
+							});
+		}
+		function updateSignInStatus(isSignedIn) {
+			if (isSignedIn) {
+				makeApiCall();
+			} else {
+
+				gapi.auth2.getAuthInstance().signIn();
+			}
+		}
+		function makeApiCall() {
+			//console.log('Call Here');
+			dataBuilder();
+			var params = {
+				spreadsheetId : "1RV45LYAbP44VIyZHPOMW6iO7qHDivPqfxhSxylr5IRQ",
+				range : 'A1',
+				valueInputOption : 'USER_ENTERED',
+				insertDataOption : 'INSERT_ROWS'
+			};
+
+			var request = gapi.client.sheets.spreadsheets.values.append(params,
+					valueRangeBody);
+			request.then(function(response) {
+				// TODO: Change code below to process the `response` object:
+				console.log(response.result);
+			}, function(reason) {
+				console.error('error: ' + reason.result.error.message);
+			});
+		}
+		function dataBuilder() {
+			valueRangeBody = loadData();
+			/* valueRangeBody = {
+				values : [ [ rowIdSheet, route_list.toString() ] ]
+			}; */
+			console.log(valueRangeBody);
+
+		}
+		function handleSignInClick(event) {
+			gapi.auth2.getAuthInstance().signIn();
+		}
+
+		function handleSignOutClick(event) {
+			gapi.auth2.getAuthInstance().signOut();
+		}
+		function handleClientLoad() {
+			gapi.client.load('plus', 'v1', apiClientLoaded());
+		}
+		function makeApiCallGPlus() {
+			gapi.client.plus.people.get({
+				userId : 'me'
+			}).execute.then(function(resp) {
+				for (var i = 0; i < resp.emails.length; i++) {
+					if (resp.emails[i].type === 'account')
+						primaryEmail = resp.emails[i].value;
+				}
+				$("#authorName").text(resp.displayName);
+				$("#email").text(primaryEmail);
+			});
+		}
+		function onSignInCallback(resp) {
+		    gapi.client.load('plus', 'v1', apiClientLoaded);
+		  }
+		function apiClientLoaded() {
+			gapi.client.plus.people.get({
+				userId : 'me'
+			}).execute(handleEmailResponse);
+		}
+		function handleEmailResponse(resp) {
+			for (var i = 0; i < resp.emails.length; i++) {
+				if (resp.emails[i].type === 'account')
+					primaryEmail = resp.emails[i].value;
+			}
+			//img = resp.image[0].url
+			$("#authorName").text(resp.displayName);
+			$("#email").text(primaryEmail);
+			img = resp.image.url;
+			$("#authorPhoto").html('<img src='+img+' class="img-circle" id="authorPhotoTumb"></img>');
+		}
+		function loadData(){
+			story = $('#story').val();
+			media = $('#googlePhotoLink').val();
+			aboutAuthor = $('#aboutAuthor').val();
+			email = $('#email').text();;
+			authorName = $('#authorName').text();;
+			authorPhoto = $('#authorPhotoTumb').attr('src');
+			connectionAuthor = $('#connectionAuthor').val();
+			googlePhotoLink = $('#connectionAuthor').val();
+			valueRangeBody = {
+					values : [ [ rowIdSheet.toString(), route_list.toString(), story, media,aboutAuthor,email,authorName,authorPhoto,connectionAuthor,googlePhotoLink] ]
+				};
+			console.log(valueRangeBody);
+			return valueRangeBody;
+		}
+	</script>
+	<script async defer src="https://apis.google.com/js/api.js"></script>
+</body>
+</html>
