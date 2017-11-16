@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+
+<meta name="description" content="Urasa City">
+<meta name="author" content="Aung Htet Maung">
+
+<title>Urasa Tour</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+<!-- Custom styles for this template -->
+<link href="css/1-col-portfolio.css" rel="stylesheet">
+<script type="text/javascript"
+	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="js/gtranslate.js"></script>
+<script src="https://apis.google.com/js/api.js"></script>
+<!-- Include the API client and Google+ client. -->
+<script src="https://plus.google.com/js/client:platform.js" async defer></script>
+
+
+<script src="js/dom.js"></script>
+<script src="js/util.js"></script>
+<script src="js/postdetail.js"></script>
+<!-- For Map
+		          To be change the API key for its own google account
+		      -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src='http://maps.google.com/maps/api/js?key=AIzaSyC51n-Mqgn7fbB3bV_4s_YWJIVno6LAZAk&libraries=places&region=JP'></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/locationpicker.jquery.js"></script>
+<script src="js/gmapcontroller.js"></script>
+<title>Urasa Tour</title>
+</head>
+<body>
+	<script src="js/gtranslate.js"></script>
+	<script src="js/loadPackage.js"></script>
+
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><span style="font-size: 2em">U</span>rasa
+						<small>Travel Bloggers</small></a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="./index.html">Home</a></li>
+					<li><a href="ctour.html">Share a tour</a></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Seasonal<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="ctour.html">Winter</a></li>
+							<li><a href="#">Spring</a></li>
+							<li><a href="#">Summer</a></li>
+							<li><a href="#">Autumn</a></li>
+							<li><a href="#">12 months enjoy</a></li>
+						</ul></li>
+					<li><a href="#">Contact</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><span id='google_translate_element'></span></li>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+	<!-- Navigation -->
+	<div class="row mapdiv">
+			<div class="col-6 col-md-8">
+				<div id="pano" class="map"></div>
+			</div>
+			<div class="col-6 col-md-4">
+				<div id="somecomponent2" class="map"></div>
+			</div>
+	</div>
+	<div class="row">
+			<div class="col-6 col-md-7">
+			</div>
+			
+	</div>
+	<!-- Footer -->
+	<div class="footer">
+		<p class="m-0 text-center text-white">Copyright &copy; SnowBit
+			Soft.</p>
+	</div>
+	<!-- /.container -->
+	<script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoadPackageDetail()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+</body>
+</html>
