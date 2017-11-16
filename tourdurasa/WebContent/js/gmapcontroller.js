@@ -4,6 +4,7 @@
  */
  $( document ).ready(function() {
 	route_list = [];
+	storeLoc = [];
       map = '';
       mapPro = '';
       var markers = [];
@@ -12,7 +13,6 @@
       var service ;
       var src = '';
       var flightPath  = '';
-      
        $('#somecomponent').locationpicker({
             enableAutocomplete: true,
                 enableReverseGeocode: true,
@@ -56,6 +56,7 @@
                     mapTypeId: 'terrain'
                   });
                storeCoordinate($('#somecomponent-lat').val(), $('#somecomponent-lon').val() , route_list);
+               storeDataSet($('#somecomponent-lat').val(), $('#somecomponent-lon').val());
                labelIndex = 0;
                var request = {
             		    location: mapPro.getCenter(),
@@ -65,7 +66,7 @@
               service = new google.maps.places.PlacesService(mapPro);
                service.textSearch(request, callback);
                initialize();
-           		lineDrawing();
+           	lineDrawing();
            });
            $('#draw_route').click(function () {
         	   lineDrawing();
@@ -95,6 +96,15 @@
             function storeCoordinate(xVal, yVal, route_list) {
               var coverter = new google.maps.LatLng(xVal,yVal);
               route_list.push(coverter);
+            }
+            function storeDataSet(x,y){
+            	console.log('sotre');
+            	var myLoc = {
+            			"log":x,
+            			"lug":y
+            	};
+            	storeLoc.push(myLoc);
+            	console.log(storeLoc);
             }
             function drop(route_list) {
                 clearMarkers();
@@ -153,6 +163,7 @@
 	            	for (var i = 0; i < route_list.length; i++) {
 	            		if(route_list[i] == marker.position){
 		            			route_list.splice(i,1);
+		            			storeLoc.splice(i,1);
 		            			flightPath.setMap(null);
 		            		}
 	            	}

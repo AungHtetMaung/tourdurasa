@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name=viewport content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <meta name="description" content="Urasa City">
 <meta name="author" content="Aung Htet Maung">
 
@@ -57,11 +57,13 @@
 					<li class="active"><a href="index.html">Home</a></li>
 					<li><a href="ctour.html">Share a tour</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">Services <span class="caret"></span></a>
+						data-toggle="dropdown" href="#">Seasonal<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="ctour.html">Create A Tour Package</a></li>
-							<li><a href="#">Page 1-2</a></li>
-							<li><a href="#">Page 1-3</a></li>
+							<li><a href="ctour.html">Winter</a></li>
+							<li><a href="#">Spring</a></li>
+							<li><a href="#">Summer</a></li>
+							<li><a href="#">Autumn</a></li>
+							<li><a href="#">12 months enjoy</a></li>
 						</ul></li>
 					<li><a href="#">Contact</a></li>
 					<li><a href="#">About</a></li>
@@ -131,11 +133,28 @@
 
 	<div class="container">
 		<div class="row centered">
-			<p style="font-size: 1.5em">Tell the story about the trip</p>
+			<span style="font-size: 1.5em">Trip Title</span>
+		</div>
+		<div class="row centered">
+			<input type='text' class="form-control" 
+				data-validation="required" id='title' />
+		</div>
+		<div class="row centered">
+			<span style="font-size: 1.5em">Tell the story about the trip</span>
 		</div>
 		<div class="row centered">
 			<textarea class="form-control" rows="10" cols='100'
 				data-validation="required" id='story'></textarea>
+		</div>
+		<div class="row centered">
+			<span style="font-size: 1.5em">That best season is   </span>
+			<select id="season" name="season">
+				<option value="all">12 months enjoy</option>
+				<option value="winter">Winter</option>
+				<option value="spring">Spring</option>
+				<option value="summer">Summer</option>
+				<option value="sutumn">Autumn</option>
+			</select>
 		</div>
 	</div>
 
@@ -146,38 +165,43 @@
 		</div>
 		<div class="row centered">
 			<div class='col-md-1'>
-				<button class="fa fa-train" style="font-size: 48px; color: black"
-					id='train' onclick="faClick(this.id)"></button>
+				<button class="fa fa-train img-circle"
+					style="font-size: 48px; color: black" id='train'
+					onclick="faClick(this.id)"></button>
 				Train
 			</div>
 			<div class='col-md-1'>
-				<button class="fa fa-bus" style="font-size: 48px; color: black"
-					id='bus' onclick="faClick(this.id)"></button>
+				<button class="fa fa-bus img-circle"
+					style="font-size: 48px; color: black" id='bus'
+					onclick="faClick(this.id)"></button>
 				Bus
 			</div>
 			<div class='col-md-1'>
-				<button class="fa fa-taxi" style="font-size: 48px; color: black"
-					id='taxi' onclick="faClick(this.id)"></button>
+				<button class="fa fa-taxi img-circle"
+					style="font-size: 48px; color: black" id='taxi'
+					onclick="faClick(this.id)"></button>
 				Taxi
 			</div>
 			<div class='col-md-1'>
-				<button class="fa fa-car" style="font-size: 48px; color: black"
-					id='car' onclick="faClick(this.id)"></button>
+				<button class="fa fa-car img-circle"
+					style="font-size: 48px; color: black" id='car'
+					onclick="faClick(this.id)"></button>
 				Car
 			</div>
 			<div class='col-md-1'>
-				<button class="fa fa-motorcycle"
+				<button class="fa fa-motorcycle img-circle"
 					style="font-size: 48px; color: black" id='motorcycle'
 					onclick="faClick(this.id)"></button>
 				Motorcycle
 			</div>
 			<div class='col-md-1'>
-				<button class="fa fa-bicycle" style="font-size: 48px; color: black"
-					id='bicycle' onclick="faClick(this.id)"></button>
+				<button class="fa fa-bicycle img-circle"
+					style="font-size: 48px; color: black" id='bicycle'
+					onclick="faClick(this.id)"></button>
 				Bicycle
 			</div>
 			<div class='col-md-1'>
-				<button class="fa fa-street-view"
+				<button class="fa fa-street-view img-circle"
 					style="font-size: 48px; color: black" id='walk'
 					onclick="faClick(this.id)"></button>
 				Walking
@@ -203,7 +227,7 @@
 				data-callback="onSignInCallback" data-theme="dark"
 				data-cookiepolicy="single_host_origin"></button>
 			<p style="font-size: 1.5em">
-				Hello, <span id='authorName'></span><span id = 'authorPhoto'></span>
+				Hello, <span id='authorName'></span><span id='authorPhoto'></span>
 			</p>
 			Reader might contact you via email, <span id='email'></span>. Is
 			there another way to reach you,
@@ -213,12 +237,13 @@
 				id='connectionAuthor'></textarea>
 			<br>
 			<p align="center">
-				<button class='btn btn-success' style="font-size: 30px" id='submit'>Come on, Let's go on a tour.</button>
+				<button class='btn btn-success' style="font-size: 30px" id='submit'>Come
+					on, Let's go on a tour.</button>
 			</p>
-			<button id="signin-button" onclick='handleSignInClick()'>Sign
+			<!-- <button id="signin-button" onclick='handleSignInClick()'>Sign
 				in</button>
 			<button id="signout-button" onclick="handleSignOutClick()">Sign
-				out</button>
+				out</button> -->
 
 		</div>
 	</div>
@@ -236,7 +261,6 @@
 	</footer>
 	<script>
 		valueRangeBody = '';
-
 		function initClient() {
 			var API_KEY = 'AIzaSyC51n-Mqgn7fbB3bV_4s_YWJIVno6LAZAk'; // TODO: Update placeholder with desired API key.
 			var CLIENT_ID = '24492359185-ejn0mks9fon7opvnnbrekb4n9kv6fli9.apps.googleusercontent.com'; // TODO: Update placeholder with desired client ID.
@@ -286,7 +310,9 @@
 					valueRangeBody);
 			request.then(function(response) {
 				// TODO: Change code below to process the `response` object:
-				console.log(response.result);
+					alert('Record Saved.');
+					window.location.replace('./index.html');
+				//console.log(response.result);
 			}, function(reason) {
 				console.error('error: ' + reason.result.error.message);
 			});
@@ -348,9 +374,11 @@
 			authorName = $('#authorName').text();;
 			authorPhoto = $('#authorPhotoTumb').attr('src');
 			connectionAuthor = $('#connectionAuthor').val();
-			googlePhotoLink = $('#connectionAuthor').val();
+			season = $('#season').val();
+			title = $('#title').val();
+			date = new Date();
 			valueRangeBody = {
-					values : [ [ rowIdSheet.toString(), route_list.toString(), story, media,aboutAuthor,email,authorName,authorPhoto,connectionAuthor,googlePhotoLink] ]
+					values : [ [ rowIdSheet.toString(), JSON.stringify(storeLoc), story, media,aboutAuthor,email,authorName,authorPhoto,connectionAuthor,tranAvai.toString(),season,title,date] ]
 				};
 			console.log(valueRangeBody);
 			return valueRangeBody;
