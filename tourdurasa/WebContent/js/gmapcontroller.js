@@ -172,6 +172,17 @@
 	            	
             }
             
-           
+            $("#googlePhotoLink").keydown(function (e) {
+
+            	   if (e.which == 9){
+            		   media.push($("#googlePhotoLink").val());
+            		   writePhotoLink(media);
+            		   $("#googlePhotoLink").val("");
+            	   	e.preventDefault();
+            	   	$("#googlePhotoLink").focus();
+            	  
+            	   }
+            	});
+            
             
  });

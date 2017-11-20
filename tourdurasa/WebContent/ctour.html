@@ -18,8 +18,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 <!-- Custom styles for this template -->
 <link href="css/1-col-portfolio.css" rel="stylesheet">
 <script type="text/javascript"
@@ -42,6 +40,32 @@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="js/locationpicker.jquery.js"></script>
 <script src="js/gmapcontroller.js"></script>
+
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+<script>
+	$.validate({
+		form : '#registration-form',
+		modules : 'security',
+		onError : function($form) {
+			alert('Validation of form ' + $form.attr('id') + ' failed!');
+		},
+		onSuccess : function($form) {
+			alert('The form ' + $form.attr('id') + ' is valid!');
+			return false; // Will stop the submission of the form
+		},
+		onValidate : function($form) {
+			return {
+				element : $('#some-input'),
+				message : 'This input has an invalid value for some reason'
+			}
+		},
+		onElementValidate : function(valid, $el, $form, errorMess) {
+			console.log('Input ' + $el.attr('name') + ' is '
+					+ (valid ? 'VALID' : 'NOT VALID'));
+		}
+	});
+</script>
 <title>Urasa Tour</title>
 </head>
 <body class='ctour_body'>
@@ -76,9 +100,8 @@
 		</div>
 	</nav>
 	<!-- Navigation -->
-
 	<!-- Map Input -->
-	<div class="container">
+	<div class="container" id ="mapcontainer">
 
 		<!-- Map Input End -->
 		<!-- Selection Map -->
@@ -126,7 +149,9 @@
 				paste the link in the text box.
 				<button type="button" class="btn btn-primary" id='goToGoogle'>Browse</button>
 			</p>
-			<input class="form-control input-sm" id="googlePhotoLink" type="text" />
+			<span id="linkBox"></span>
+			<input class="form-control input-sm" id="googlePhotoLink" type="text"
+				data-validation="required" data-validation-error-msg="Requred Field" />
 		</div>
 	</div>
 	<hr>
@@ -136,8 +161,8 @@
 			<span style="font-size: 1.5em">Trip Title</span>
 		</div>
 		<div class="row centered">
-			<input type='text' class="form-control" 
-				data-validation="required" id='title' />
+			<input type='text' class="form-control" data-validation="required"
+				id='title' />
 		</div>
 		<div class="row centered">
 			<span style="font-size: 1.5em">Tell the story about the trip</span>
@@ -147,8 +172,8 @@
 				data-validation="required" id='story'></textarea>
 		</div>
 		<div class="row centered">
-			<span style="font-size: 1.5em">That best season is   </span>
-			<select id="season" name="season">
+			<span style="font-size: 1.5em">That best season is </span> <select
+				id="season" name="season">
 				<option value="all">12 months enjoy</option>
 				<option value="winter">Winter</option>
 				<option value="spring">Spring</option>
@@ -159,7 +184,7 @@
 	</div>
 
 	<hr>
-	<div class="container">
+	<div class="container" id="trans">
 		<div class="row centered">
 			<p style="font-size: 1.5em">How could we reach there?</p>
 		</div>
@@ -247,7 +272,6 @@
 
 		</div>
 	</div>
-
 	<!-- Selection Map -->
 	<input type="text" id="somecomponent-lat" class='location' />
 	<input type="text" id="somecomponent-lon" class='location' />
@@ -261,6 +285,7 @@
 	</footer>
 	<script>
 		valueRangeBody = '';
+		media = [];
 		function initClient() {
 			var API_KEY = 'AIzaSyC51n-Mqgn7fbB3bV_4s_YWJIVno6LAZAk'; // TODO: Update placeholder with desired API key.
 			var CLIENT_ID = '24492359185-ejn0mks9fon7opvnnbrekb4n9kv6fli9.apps.googleusercontent.com'; // TODO: Update placeholder with desired client ID.
@@ -298,24 +323,26 @@
 		}
 		function makeApiCall() {
 			//console.log('Call Here');
-			dataBuilder();
-			var params = {
-				spreadsheetId : "1RV45LYAbP44VIyZHPOMW6iO7qHDivPqfxhSxylr5IRQ",
-				range : 'A1',
-				valueInputOption : 'USER_ENTERED',
-				insertDataOption : 'INSERT_ROWS'
-			};
+			if (validate()) {
+				dataBuilder();
+				var params = {
+					spreadsheetId : "1RV45LYAbP44VIyZHPOMW6iO7qHDivPqfxhSxylr5IRQ",
+					range : 'A1',
+					valueInputOption : 'USER_ENTERED',
+					insertDataOption : 'INSERT_ROWS'
+				};
 
-			var request = gapi.client.sheets.spreadsheets.values.append(params,
-					valueRangeBody);
-			request.then(function(response) {
-				// TODO: Change code below to process the `response` object:
+				var request = gapi.client.sheets.spreadsheets.values.append(
+						params, valueRangeBody);
+				request.then(function(response) {
+					// TODO: Change code below to process the `response` object:
 					alert('Record Saved.');
 					window.location.replace('./index.html');
-				//console.log(response.result);
-			}, function(reason) {
-				console.error('error: ' + reason.result.error.message);
-			});
+					//console.log(response.result);
+				}, function(reason) {
+					console.error('error: ' + reason.result.error.message);
+				});
+			}
 		}
 		function dataBuilder() {
 			valueRangeBody = loadData();
@@ -348,8 +375,8 @@
 			});
 		}
 		function onSignInCallback(resp) {
-		    gapi.client.load('plus', 'v1', apiClientLoaded);
-		  }
+			gapi.client.load('plus', 'v1', apiClientLoaded);
+		}
 		function apiClientLoaded() {
 			gapi.client.plus.people.get({
 				userId : 'me'
@@ -364,25 +391,70 @@
 			$("#authorName").text(resp.displayName);
 			$("#email").text(primaryEmail);
 			img = resp.image.url;
-			$("#authorPhoto").html('<img src='+img+' class="img-circle" id="authorPhotoTumb"></img>');
+			$("#authorPhoto")
+					.html(
+							'<img src='+img+' class="img-circle" id="authorPhotoTumb"></img>');
 		}
-		function loadData(){
+		function loadData() {
 			story = $('#story').val();
-			media = $('#googlePhotoLink').val();
 			aboutAuthor = $('#aboutAuthor').val();
-			email = $('#email').text();;
-			authorName = $('#authorName').text();;
+			email = $('#email').text();
+			authorName = $('#authorName').text();
 			authorPhoto = $('#authorPhotoTumb').attr('src');
 			connectionAuthor = $('#connectionAuthor').val();
 			season = $('#season').val();
 			title = $('#title').val();
 			date = new Date();
 			valueRangeBody = {
-					values : [ [ rowIdSheet.toString(), JSON.stringify(storeLoc), story, media,aboutAuthor,email,authorName,authorPhoto,connectionAuthor,tranAvai.toString(),season,title,date] ]
-				};
+				values : [ [ rowIdSheet.toString(), JSON.stringify(storeLoc),
+						story, media, aboutAuthor, email, authorName,
+						authorPhoto, connectionAuthor, tranAvai.toString(),
+						season, title, date ] ]
+			};
 			console.log(valueRangeBody);
 			return valueRangeBody;
 		}
+		function validate() {
+			if ($('#story').val() == "" || $('#googlePhotoLink').val() == ""
+					|| $('#aboutAuthor').val() == ""
+					|| $('#email').text() == "" || $('#authorName').text()==""
+					|| $('#authorPhotoTumb').attr('src') == ""
+					|| $('#connectionAuthor').val() == ""
+					|| $('#season').val() == "" || $('#title').val() == "") {
+				alert("All Fields are Rquired.");
+				return false;
+			}
+			if (storeLoc.length == 0) {
+				$('html,body').animate({
+			        scrollTop: $("#mapcontainer").offset().top},
+			        'slow');
+				alert("Select at least one location on Map.");
+				return false;
+			}
+			if (tranAvai.length == 0) {
+				 $('html,body').animate({
+				        scrollTop: $("#trans").offset().top},
+				        'slow');
+				alert("How could we reach there?");
+				return false;
+			}
+		}
+		function deleteLink(link){
+			for (var i = 0; i < media.length; i++) {
+				if(media[i] === link){
+					media.splice(i,1);
+				}
+			}
+			writePhotoLink(media);
+		}
+		function writePhotoLink(linkArray){
+			$( "#linkBox" ).empty();
+			for (var i = 0; i < media.length; i++) {
+     		   $( "#linkBox" ).append( "<span> <a target='_blank' href='"+ media[i]+"'>"+media[i]+"</a>" +
+     		   		"<button type='button' onclick=deleteLink('"+media[i]+"') class='close' aria-label='Close'><span'>&times;</span></button></span><br>" );
+     		   }
+        	
+        }
 	</script>
 	<script async defer src="https://apis.google.com/js/api.js"></script>
 </body>
