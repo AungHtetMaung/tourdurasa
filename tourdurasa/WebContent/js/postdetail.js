@@ -28,6 +28,7 @@ var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
+var divJson = {};
 /**
  *  On load, called to load the auth2 library and API client library.
  */
@@ -92,6 +93,9 @@ function buildObjDetail(response){
 	var transport = '';
 	var season = '';
 	var locTamp = [];
+	var postDate = '';
+	var divSlideData = '';
+	var divData = '';
 	if (range.values.length > 0) {
 		for (i = 0; i < range.values.length; i++) {
 			var row = range.values[i];
@@ -119,7 +123,7 @@ function buildObjDetail(response){
 						break;
 						//img url
 					case 3:
-						imgUrl = row[j];
+						imgUrl = BuiltJsonImg(row[j]);
 						break;
 						//About Author
 					case 4:
@@ -153,10 +157,13 @@ function buildObjDetail(response){
 					case 11:
 						title =  row[j];
 						break;
+						//Post Date
+					case 12:
+						postDate =  row[j];
+						break;
 					}
 				}
 				//location.push(locTamp);
-				divJson = {};
 				divJson = {
 						"divId":divId,
 						"location" : JSON.parse(locTamp),
@@ -169,9 +176,12 @@ function buildObjDetail(response){
 						"authProPic" : authProPic,
 						"authContact" : authContact,
 						"transport" : transport,
-						"season" : transport
+						"season" : transport,
+						"title": title,
+						"date" : postDate
 				};
 				console.log(divJson);
+				htmlFactory(divJson)
 				//document.getElementById("loader").style.display = "none";
 			}
 		}
@@ -184,8 +194,101 @@ function buildObjDetail(response){
 		storeCoordinate( divJson.location[k].log,divJson.location[k].lug);
 	}
 	var timeout = setTimeout(drawMap(),3000);
-	
+
 	initializeDetailPano(parseFloat(divJson.location[0].log),parseFloat(divJson.location[0].lug));
+}
+
+function htmlFactory(dataString){
+	var mainTag = document.getElementById('content');
+	var sliderTag = document.getElementById('slider');
+
+	divData = '<div class="row">';
+	divData += '<div class="col-md-12">';
+	divData += '<h2>';
+	divData += dataString.title;
+	divData += '</h2>';
+	divData += '<p>';
+	divData += dataString.longMsg;
+	divData += '<br><br>';
+	divData += '<b>Necessary Transportation are :</b>&nbsp;';
+	divData += dataString.transport;
+	divData += '</p>';
+
+	divData += '<div></div><hr>';
+
+	divData += '<div class="row">';
+	divData += '<div class="col-md-4">';
+	divData += '<b>Posted by :</b>';
+	divData += dataString.authorName;
+	divData += '&nbsp; <img src='+dataString.authProPic+' class="img-circle" id="authorPhotoTumb"></img>';
+	divData += '<br>';
+	divData += '</div>';
+	divData += '<div class="col-md-4">'
+	divData += '<b>Contact to blogger :</b>';
+	divData += dataString.authorMail;
+	divData += '<br>';
+	divData += dataString.date;
+	divData += '</div>';
+	divData += '<div class="col-md-4">'
+	divData += '<span><a target="_blank" class="fa faSocial fa-twitter" href="https://twitter.com/intent/tweet?text='+dataString.title+
+			'&url=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+dataString.divId+
+			'&via=SmartTourUrasa&'+
+			'hashtags=Urasa%2CTravel%2CSmartTour&'+
+			'" data-size="large">'
+			+'</a>'+
+			'<a target="_blank" id="F-'+dataString.divId+'" class="fa faSocial fa-facebook" data="https://www.facebook.com/dialog/share?quote='+dataString.title+'&href=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+dataString.divId+'&picture='+dataString.imgUrl+'&method=share&'+'hashtags=Urasa%2CTravel%2CSmartTour&app_id=1831840850374206"'+
+			'data-size="large" onclick="SocialClick(this)">'+'</a>'+
+			'</span>';
+	divData += '</div></div></div></div>';
+
+	divSlideData = '<div class="container">';
+	divSlideData += '<div id="myCarousel" class="carousel slide" data-ride="carousel">';
+//	<!-- Indicators -->
+	divSlideData += '<ol class="carousel-indicators">';
+	divSlideData += ' <li data-target="#myCarousel" data-slide-to="0" class="active"></li>';
+	divSlideData += '<li data-target="#myCarousel" data-slide-to="1"></li>';
+	divSlideData += '<li data-target="#myCarousel" data-slide-to="2"></li>';
+	divSlideData += ' </ol>';
+
+//	<!-- Wrapper for slides -->
+	divSlideData += '<div class="carousel-inner">';
+	
+	for (var i = 0; i < dataString.imgUrl.links.length; i++) {
+	if(i==0){
+	divSlideData += ' <div class="item active">';
+	divSlideData += '<img src="'+dataString.imgUrl.links[i]+'" alt="Los Angeles" style="width:100%;height:500px;overflow: hidden;">';
+	divSlideData += '</div>';
+	}else{
+		divSlideData += ' <div class="item">';
+		divSlideData += '<img src="'+dataString.imgUrl.links[i]+'" alt="Los Angeles" style="width:100%;height:500px;overflow: hidden;">';
+		divSlideData += '</div>';
+	}
+	}
+//	divSlideData += '<div class="item">';
+//	divSlideData += '<img src="./img/aung.jpg" alt="Chicago" style="width:100%;">';
+//	divSlideData += ' </div>';
+//
+//	divSlideData += '<div class="item">';
+//	divSlideData += '<img src="./img/aung.jpg" alt="New york" style="width:100%;">';
+//	divSlideData += '</div>';
+	
+	
+	divSlideData += '</div>';
+
+//	<!-- Left and right controls -->
+	divSlideData += '<a class="left carousel-control" href="#myCarousel" data-slide="prev">';
+	divSlideData += ' <span class="glyphicon glyphicon-chevron-left"></span>';
+	divSlideData += ' <span class="sr-only">Previous</span>';
+	divSlideData += '</a>';
+	divSlideData += '<a class="right carousel-control" href="#myCarousel" data-slide="next">'
+		divSlideData += '<span class="glyphicon glyphicon-chevron-right"></span>';
+	divSlideData += '<span class="sr-only">Next</span>';
+	divSlideData += '</a>';
+	divSlideData += '</div>';
+	divSlideData += '</div>';
+
+	sliderTag.innerHTML += divSlideData;
+	mainTag.innerHTML += divData;
 }
 function loadMyFunction() {
 	myVar = setTimeout(showPage, 3000);
@@ -251,7 +354,7 @@ function addMarkerWithTimeout(position, timeout, label) {
 			//Pano Pya Yan
 			//console.log(marker.position);
 			initializeDetailPanoPosition(marker.position);
-			
+
 		});
 
 	}, timeout);
@@ -270,3 +373,78 @@ function initializeDetailPanoPosition(pos) {
 				}
 			});
 }
+function imgArrayToJson(datastring){
+	var obj = { "links": datastring};
+	//console.log(obj);
+	return obj;
+}
+function BuiltJsonImg(dataString){
+	var step1 = toArrayS(dataString);
+	var step2 = imgArrayToJson(step1);
+	return step2;
+}
+function toArrayS(datastring) {
+	var res = [];
+    res = datastring.split(",");
+    return res;
+}
+function StoryTrimer(data){
+	step1 = data.split(" ",100);
+	return step1.join(" ");
+}
+function SocialClick(a){
+	  var linkTag = a;
+	  var x = a.getAttribute("data");
+	   //console.log(getParameterByName('app_id',x));
+	  var listOfPic = divJson.imgUrl.links;
+	  var photo = listOfPic[0];
+	  console.log(listOfPic);
+	   FB.ui(
+			   {
+			   method: 'share_open_graph',
+			   action_type: 'og.shares',
+			   action_properties: JSON.stringify({
+		             // object : createJsonForFB(x)
+				   object : {
+		                 'og:url': getParameterByName('href',x),
+		                 'og:title': 'SmartTravel',
+		                 'og:description': getParameterByName('quote',x),
+		                 'og:image:width': '1000',
+		                 'og:image:height': '960',
+		                 'og:image': photo
+		              }
+		          }),
+//			   name: 'DebugmodeEventPlans',
+//			   link: getParameterByName('href',x),
+//			   caption: 'SmartTravel',
+//			   description: getParameterByName('quote',x),
+//			   picture:  getParameterByName('picture',x),
+//			   appId: getParameterByName('app_id',x)
+			   });
+}
+
+function createJsonForFB(data){
+ var fbJson =	{
+		'og:image':'',
+       'og:url': getParameterByName('href',data),
+       'og:title': 'SmartTravel',
+       'og:description': getParameterByName('quote',data),
+       'og:og:image:width': '2560',
+       'og:image:height': '960'
+	};
+var obj = JSON.parse(fbJson);
+ for (var i = 0; i < divJson.imgUrl.links.length; i++) {
+	 obj['og:image'].push(divJson.imgUrl.links[i]);
+	 
+ }
+ return obj;
+}
+function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}

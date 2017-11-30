@@ -1,45 +1,61 @@
 <!DOCTYPE html>
 <html lang="en,jp">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>Urasa Tour</title>
+<title>Urasa Tour</title>
 
-	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	<!-- Custom styles for this template -->
-	<link href="css/1-col-portfolio.css" rel="stylesheet">
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom styles for this template -->
+<link href="css/1-col-portfolio.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://connect.facebook.net/en_US/all.js"></script>
+<script>
+FB.init({
+    appId      : 1831840850374206,
+    xfbml      : true,
+    version    : 'v2.11'
+  });
+</script>
 </head>
 
-  <body>
-	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<body>
+	<script type="text/javascript"
+		src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 	<script src="js/gtranslate.js"></script>
 	<script src="js/loadPackage.js"></script>
 
 
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#"><span style="font-size: 2em">U</span>rasa <small>Travel Bloggers</small></a>
+					<a class="navbar-brand" href="index.html"><span style="font-size: 2em">T</span>rip
+						<small><span style="font-size: 2em">I</span>t</small></a>
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
 				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
+					<li class="active"><a href="index.html">Home</a></li>
 					<li><a href="ctour.html">Share a tour</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">Seasonal<span class="caret"></span></a>
@@ -50,28 +66,28 @@
 							<li><a href="#">Autumn</a></li>
 							<li><a href="#">12 months enjoy</a></li>
 						</ul></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="contact.html">Contact</a></li>
 					<li><a href="#">About</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><span id='google_translate_element'></span></li>
 				</ul>
-
+				</div>
 			</div>
 		</div>
 	</nav>
 	<!-- Navigation -->
 
 	<!-- Page Content -->
-    <div class="container">
+	<div class="container">
 
-      <!-- Page Heading -->
-      <h2 class="my-4"> Offered Tour Packages   </h2>
-	<div id='packageContainer' class='container'>
-     <div id="loader"></div>
-    </div>
+		<!-- Page Heading -->
+		<h5 class="my-4">Our recommended tour are listed below,</h5>
+		<div id='packageContainer' class='container'>
+			<div id="loader"></div>
+		</div>
 
-      <!-- Pagination
+		<!-- Pagination
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Previous">
@@ -99,19 +115,20 @@
     </div>
     /.container -->
 	</div>
-    <!-- Footer -->
-      <div class="footer">
-        <p class="m-0 text-center text-white">Copyright &copy; SnowBit Soft.</p>
-      </div>
-      <!-- /.container -->
+	<!-- Footer -->
+	<div class="footer">
+		<p class="m-0 text-center text-white">Copyright &copy; SnowBit
+			Soft.</p>
+	</div>
+	<!-- /.container -->
 
-    <!-- Bootstrap core JavaScript -->
-    <!-- <script src="vendor/jquery/jquery.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<!-- <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 	<script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoadPackage()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+		onload="this.onload=function(){};handleClientLoadPackage()"
+		onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
-  </body>
+</body>
 
 </html>

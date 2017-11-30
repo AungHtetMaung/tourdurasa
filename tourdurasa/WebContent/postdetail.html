@@ -43,23 +43,36 @@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="js/locationpicker.jquery.js"></script>
 <script src="js/gmapcontroller.js"></script>
+<script src="https://connect.facebook.net/en_US/all.js"></script>
+<script>
+FB.init({
+    appId      : 1831840850374206,
+    xfbml      : true,
+    version    : 'v2.11'
+  });
+</script>
 <title>Urasa Tour</title>
 </head>
 <body>
 	<script src="js/gtranslate.js"></script>
-	<script src="js/loadPackage.js"></script>
 
 
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#"><span style="font-size: 2em">U</span>rasa
-						<small>Travel Bloggers</small></a>
+					<a class="navbar-brand" href="index.html"><span style="font-size: 2em">T</span>rip
+						<small><span style="font-size: 2em">I</span>t</small></a>
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
 				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="./index.html">Home</a></li>
+					<li class="active"><a href="index.html">Home</a></li>
 					<li><a href="ctour.html">Share a tour</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">Seasonal<span class="caret"></span></a>
@@ -70,17 +83,21 @@
 							<li><a href="#">Autumn</a></li>
 							<li><a href="#">12 months enjoy</a></li>
 						</ul></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="contact.html">Contact</a></li>
 					<li><a href="#">About</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><span id='google_translate_element'></span></li>
 				</ul>
-
+				</div>
 			</div>
 		</div>
 	</nav>
 	<!-- Navigation -->
+	<div class="row" id="content">
+	</div><br>
+	<div class="container" id="slider">
+	</div><br>
 	<div class="row mapdiv">
 			<div class="col-6 col-md-8">
 				<div id="pano" class="map"></div>
@@ -89,11 +106,10 @@
 				<div id="somecomponent2" class="map"></div>
 			</div>
 	</div>
-	<div class="row">
-			<div class="col-6 col-md-7">
-			</div>
-			
-	</div>
+	
+	
+	
+	
 	<!-- Footer -->
 	<div class="footer">
 		<p class="m-0 text-center text-white">Copyright &copy; SnowBit

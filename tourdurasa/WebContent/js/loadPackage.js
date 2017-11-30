@@ -2,6 +2,8 @@
  * Copy Right Aung Htet Maung 
  * under google license.
  */
+
+
 // Global Packages
 	var packageArray = [];
 // Client ID and API key from the Developer Console
@@ -67,9 +69,11 @@
       }
       
       
-      function buildList(divParam){
+      function buildList(divParam,divId){
     	  	var mainTag = document.getElementById('packageContainer');
-    	  		mainTag.innerHTML += divParam; 
+    	  		mainTag.innerHTML += divParam;
+    	  		
+    	  		
       }
       
       function buildDiv(response){
@@ -91,7 +95,7 @@
           if (range.values.length > 0) {
             for (i = range.values.length-1; i >= 0 ; i--) {
               var row = range.values[i];
-              console.log(row);
+              //console.log(row);
               // Print columns A and E, which correspond to indices 0 and 4.
               for (j = 0; j < row.length; j++) {
             	  
@@ -115,7 +119,7 @@
             	  		break;
             	  		//img url
             	  	case 3:
-            	  		imgUrl = row[j];
+            	  		imgUrl = BuiltJsonImg(row[j]);
             	  		break;
             	  		//About Author
             	  	case 4:
@@ -171,7 +175,7 @@
               var htmlFatory = '';
               htmlFatory += '<div class="row" id="div-'+divId+'">';
               htmlFatory += '<div class="col-md-7">';
-              htmlFatory += '<img class="img-fluid rounded mb-3 mb-md-0" src="'+imgUrl+'" alt="'+title+'">';
+              htmlFatory += '<img class="img-fluid img-responsive img-rounded mb-6 mb-md-0" src="'+imgUrl.links[0]+'" alt="'+title+'">';
               htmlFatory += '</div>';
               htmlFatory += '<div class="col-md-5">';
               htmlFatory += '<h3>'+title+'</h3>';
@@ -180,13 +184,21 @@
               htmlFatory += '<span class="fa fa-star checked"></span>';
               htmlFatory += '<span class="fa fa-star checked"></span>';
               htmlFatory += '<span class="fa fa-star checked"></span>';
-              htmlFatory += '<p class= "card-body">'+shortMsg+'......</p>';
+              htmlFatory += '<p class= "card-body">'+StoryTrimer(shortMsg)+'......</p>';
               htmlFatory += '<a class="btn btn-primary" href="./postdetail.html?divId='+divId+'" id="'+divId+'">Read More..</a>';
-              
-              	htmlFatory += '</div>';
+              htmlFatory += '<span><a target="_blank" class="fa faSocial fa-twitter" href="https://twitter.com/intent/tweet?text='+title+
+              				'&url=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+divId+
+              				'&via=SmartTourUrasa&'+
+              				'hashtags=Urasa%2CTravel%2CSmartTour&'+
+              				'" data-size="large">'
+              				+'</a>'+
+              				'<a target="_blank" id="F-'+divId+'" class="fa faSocial fa-facebook" data="https://www.facebook.com/dialog/share?quote='+title+'&href=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+divId+'&picture='+imgUrl+'&method=share&'+'hashtags=Urasa%2CTravel%2CSmartTour&app_id=1831840850374206"'+
+              				'data-size="large" onclick="SocialClick(this)">'+'</a>'+
+              				'</span>';
+              htmlFatory += '</div>';
               htmlFatory += '</div><hr>';
               htmlFatory += '<style>.img-fluid {width: 600px;height: 300px;} @media (max-width: 768px) {.img-fluid{width: 300px;height: 200px;}}</style>'
-              buildList(htmlFatory);
+              buildList(htmlFatory,divId);
               document.getElementById("loader").style.display = "none";
             }
             
@@ -219,4 +231,60 @@
 //      <!-- /.row -->
 //
 //      <hr>
+      
+      function SocialClick(a){
+    	  var linkTag = a;
+    	  var x = a.getAttribute("data");
+    	   console.log(getParameterByName('app_id',x));
+    	   FB.ui(
+    			   {
+    			   method: 'share_open_graph',
+    			   action_type: 'og.shares',
+    			   action_properties: JSON.stringify({
+    		              object : {
+    		                 'og:url': getParameterByName('href',x),
+    		                 'og:title': 'SmartTravel',
+    		                 'og:description': getParameterByName('quote',x),
+    		                 'og:og:image:width': '2560',
+    		                 'og:image:height': '960',
+    		                 'og:image': getParameterByName('picture',x)
+    		              }
+    		          }),
+//    			   name: 'DebugmodeEventPlans',
+//    			   link: getParameterByName('href',x),
+//    			   caption: 'SmartTravel',
+//    			   description: getParameterByName('quote',x),
+//    			   picture:  getParameterByName('picture',x),
+//    			   appId: getParameterByName('app_id',x)
+    			   });
+      }
+      
+      function getParameterByName(name, url) {
+    	    if (!url) url = window.location.href;
+    	    name = name.replace(/[\[\]]/g, "\\$&");
+    	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    	        results = regex.exec(url);
+    	    if (!results) return null;
+    	    if (!results[2]) return '';
+    	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    	}
+      function toArrayS(datastring) {
+    		var res = [];
+    	    res = datastring.split(",");
+    	    return res;
+    	}
+      function imgArrayToJson(datastring){
+    	  var obj = { "links": datastring};
+    	  console.log(obj);
+    	  return obj;
+      }
+      function BuiltJsonImg(dataString){
+    	   var step1 = toArrayS(dataString);
+    	   var step2 = imgArrayToJson(step1);
+    	   return step2;
+      }
+      function StoryTrimer(data){
+    	  	step1 = data.split(" ",100);
+    	  	return step1.join(" ");
+      }
      

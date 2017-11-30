@@ -71,12 +71,18 @@
 <body class='ctour_body'>
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#"><span style="font-size: 2em">U</span>rasa
-						<small>Travel Bloggers</small></a>
+					<a class="navbar-brand" href="index.html"><span style="font-size: 2em">T</span>rip
+						<small><span style="font-size: 2em">I</span>t</small></a>
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
 				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="index.html">Home</a></li>
 					<li><a href="ctour.html">Share a tour</a></li>
@@ -89,13 +95,13 @@
 							<li><a href="#">Autumn</a></li>
 							<li><a href="#">12 months enjoy</a></li>
 						</ul></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="contact.html">Contact</a></li>
 					<li><a href="#">About</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><span id='google_translate_element'></span></li>
 				</ul>
-
+				</div>
 			</div>
 		</div>
 	</nav>
@@ -322,16 +328,17 @@
 			}
 		}
 		function makeApiCall() {
-			//console.log('Call Here');
+			//console.log('makeApiCall');
 			if (validate()) {
 				dataBuilder();
+				//console.log('Built');
 				var params = {
 					spreadsheetId : "1RV45LYAbP44VIyZHPOMW6iO7qHDivPqfxhSxylr5IRQ",
 					range : 'A1',
 					valueInputOption : 'USER_ENTERED',
 					insertDataOption : 'INSERT_ROWS'
 				};
-
+				//console.log(valueRangeBody);
 				var request = gapi.client.sheets.spreadsheets.values.append(
 						params, valueRangeBody);
 				request.then(function(response) {
@@ -345,11 +352,12 @@
 			}
 		}
 		function dataBuilder() {
+			console.log("dataBuilder");
 			valueRangeBody = loadData();
 			/* valueRangeBody = {
 				values : [ [ rowIdSheet, route_list.toString() ] ]
 			}; */
-			console.log(valueRangeBody);
+			//console.log(valueRangeBody);
 
 		}
 		function handleSignInClick(event) {
@@ -396,6 +404,7 @@
 							'<img src='+img+' class="img-circle" id="authorPhotoTumb"></img>');
 		}
 		function loadData() {
+			//console.log("loadData");
 			story = $('#story').val();
 			aboutAuthor = $('#aboutAuthor').val();
 			email = $('#email').text();
@@ -405,17 +414,18 @@
 			season = $('#season').val();
 			title = $('#title').val();
 			date = new Date();
+			//console.log("loaded");
 			valueRangeBody = {
 				values : [ [ rowIdSheet.toString(), JSON.stringify(storeLoc),
-						story, media, aboutAuthor, email, authorName,
+						story, media.toString(), aboutAuthor, email, authorName,
 						authorPhoto, connectionAuthor, tranAvai.toString(),
 						season, title, date ] ]
 			};
-			console.log(valueRangeBody);
+			//console.log(valueRangeBody);
 			return valueRangeBody;
 		}
 		function validate() {
-			if ($('#story').val() == "" || $('#googlePhotoLink').val() == ""
+			if ($('#story').val() == "" 
 					|| $('#aboutAuthor').val() == ""
 					|| $('#email').text() == "" || $('#authorName').text()==""
 					|| $('#authorPhotoTumb').attr('src') == ""
@@ -438,6 +448,14 @@
 				alert("How could we reach there?");
 				return false;
 			}
+			if (media.length == 0) {
+				 $('html,body').animate({
+				        scrollTop: $("#linkBox").offset().top},
+				        'slow');
+				alert("Can you show some photos to your funs?");
+				return false;
+			}
+			return true;
 		}
 		function deleteLink(link){
 			for (var i = 0; i < media.length; i++) {
