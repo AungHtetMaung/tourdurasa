@@ -236,7 +236,7 @@ function htmlFactory(dataString){
 	divData += '<span><a target="_blank" class="fa faSocial fa-twitter" href="https://twitter.com/intent/tweet?text='+dataString.title+
 			'&url=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+dataString.divId+
 			'&via=TripIt&'+
-			'hashtags=Urasa%2CTravel%2CSmartTour&'+
+			'hashtags=Urasa%2CTravel%2CSmartTour%2CTripIt&'+
 			'" data-size="large">'
 			+'</a>'+
 			'<a target="_blank" id="F-'+dataString.divId+'" class="fa faSocial fa-facebook" data="https://www.facebook.com/dialog/share?quote='+dataString.title+'&href=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+dataString.divId+'&picture='+dataString.imgUrl+'&method=share&'+'hashtags=Urasa%2CTravel%2CSmartTour&app_id=1831840850374206"'+
@@ -418,7 +418,8 @@ function SocialClick(a){
 	   //console.log(getParameterByName('app_id',x));
 	  var listOfPic = divJson.imgUrl.links;
 	  var photo = listOfPic[0];
-	  console.log(listOfPic);
+	  var shortPost = divJson.shortMsg;
+	  //console.log(listOfPic);
 	   FB.ui(
 			   {
 			   method: 'share_open_graph',
@@ -427,8 +428,8 @@ function SocialClick(a){
 		             // object : createJsonForFB(x)
 				   object : {
 		                 'og:url': getParameterByName('href',x),
-		                 'og:title': 'SmartTravel',
-		                 'og:description': getParameterByName('quote',x),
+		                 'og:title': 'TripIt',
+		                 'og:description': shortPost,
 		                 'og:image:width': '1000',
 		                 'og:image:height': '960',
 		                 'og:image': photo
@@ -506,7 +507,7 @@ function writeNewWindow(){
 	var imgPath = "";
 	var bodyPath = "";
 	
-	infoPath  = '<div class="row">';
+	infoPath  = '<div class="row" style="margin-left:20px;margin-right:20px;">';
 	infoPath  += '<div class="col-md-12">';
 	infoPath  += '<h2 align="left">';
 	infoPath  += dataString.title;
@@ -536,7 +537,7 @@ function writeNewWindow(){
 	
 	//infoPath  += downloadingImage;
 	//infoPath  += '<img src="https://maps.googleapis.com/maps/api/staticmap?center=37.167436,138.92280500000004&zoom=16&size=500x500&markers=color:red%7C37.167436,138.92280500000004&markers=color:red%7C37.16962464650317,138.91980092590336&key=AIzaSyC51n-Mqgn7fbB3bV_4s_YWJIVno6LAZAk" />';
-	infoPath  += '</div></div></div><br>';
+	infoPath  += '</div></div></div><hr><br>';
 	
 	imgPath = '<div class="container">';
 	imgPath += '<div id="myCarousel" class="carousel slide" data-ride="carousel">';

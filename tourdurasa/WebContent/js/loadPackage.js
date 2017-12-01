@@ -188,11 +188,11 @@
               htmlFatory += '<a class="btn btn-primary" href="./postdetail.html?divId='+divId+'" id="'+divId+'">Read More..</a>';
               htmlFatory += '<span><a target="_blank" class="fa faSocial fa-twitter" href="https://twitter.com/intent/tweet?text='+title+
               				'&url=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+divId+
-              				'&via=SmartTourUrasa&'+
-              				'hashtags=Urasa%2CTravel%2CSmartTour&'+
+              				'&via=TripIt&'+
+              				'hashtags=Urasa%2CTravel%2CSmartTour%2CTripIt&'+
               				'" data-size="large">'
               				+'</a>'+
-              				'<a target="_blank" id="F-'+divId+'" class="fa faSocial fa-facebook" data="https://www.facebook.com/dialog/share?quote='+title+'&href=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+divId+'&picture='+imgUrl+'&method=share&'+'hashtags=Urasa%2CTravel%2CSmartTour&app_id=1831840850374206"'+
+              				'<a target="_blank" id="F-'+divId+'" class="fa faSocial fa-facebook" data="https://www.facebook.com/dialog/share?quote='+title+'&href=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+divId+'&picture='+imgUrl.links[0]+'&method=share&'+'hashtags=Urasa%2CTravel%2CSmartTour&app_id=1831840850374206"'+
               				'data-size="large" onclick="SocialClick(this)">'+'</a>'+
               				'</span>';
               htmlFatory += '</div>';
@@ -235,7 +235,8 @@
       function SocialClick(a){
     	  var linkTag = a;
     	  var x = a.getAttribute("data");
-    	   console.log(getParameterByName('app_id',x));
+    	  var listOfPic = getParameterByName('picture',x)
+   	   console.log(listOfPic);
     	   FB.ui(
     			   {
     			   method: 'share_open_graph',
@@ -243,11 +244,11 @@
     			   action_properties: JSON.stringify({
     		              object : {
     		                 'og:url': getParameterByName('href',x),
-    		                 'og:title': 'SmartTravel',
+    		                 'og:title': 'TripIt',
     		                 'og:description': getParameterByName('quote',x),
     		                 'og:og:image:width': '2560',
     		                 'og:image:height': '960',
-    		                 'og:image': getParameterByName('picture',x)
+    		                 'og:image': listOfPic
     		              }
     		          }),
 //    			   name: 'DebugmodeEventPlans',
