@@ -29,6 +29,7 @@ var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
 var divJson = {};
+var srcMap = "" ;
 /**
  *  On load, called to load the auth2 library and API client library.
  */
@@ -70,7 +71,8 @@ function listMajorsDetail() {
 		spreadsheetId: '1RV45LYAbP44VIyZHPOMW6iO7qHDivPqfxhSxylr5IRQ',
 		range: 'A1:Z99',
 	}).then(function(response) {
-		var timeout = setTimeout(buildObjDetail(response),3000);
+		//var timeout = setTimeout(buildObjDetail(response),3000);
+		buildObjDetail(response)
 	}, function(response) {
 		console.log('Error: ' + response.result.error.message);
 	});
@@ -180,7 +182,7 @@ function buildObjDetail(response){
 						"title": title,
 						"date" : postDate
 				};
-				console.log(divJson);
+				//console.log(divJson);
 				htmlFactory(divJson)
 				//document.getElementById("loader").style.display = "none";
 			}
@@ -210,10 +212,11 @@ function htmlFactory(dataString){
 	divData += '<p>';
 	divData += dataString.longMsg;
 	divData += '<br><br>';
-	divData += '<b>Necessary Transportation are :</b>&nbsp;';
+	divData += '<b>Avaliable Transportation are :</b>&nbsp;';
 	divData += dataString.transport;
+	divData += '<img src='+srcMap+'/>';
 	divData += '</p>';
-
+	
 	divData += '<div></div><hr>';
 
 	divData += '<div class="row">';
@@ -222,25 +225,25 @@ function htmlFactory(dataString){
 	divData += dataString.authorName;
 	divData += '&nbsp; <img src='+dataString.authProPic+' class="img-circle" id="authorPhotoTumb"></img>';
 	divData += '<br>';
+	divData += dataString.date;
 	divData += '</div>';
 	divData += '<div class="col-md-4">'
 	divData += '<b>Contact to blogger :</b>';
 	divData += dataString.authorMail;
-	divData += '<br>';
-	divData += dataString.date;
 	divData += '</div>';
+	divData += '<img width="700" src='+srcMap+'/>';
 	divData += '<div class="col-md-4">'
 	divData += '<span><a target="_blank" class="fa faSocial fa-twitter" href="https://twitter.com/intent/tweet?text='+dataString.title+
 			'&url=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+dataString.divId+
-			'&via=SmartTourUrasa&'+
+			'&via=TripIt&'+
 			'hashtags=Urasa%2CTravel%2CSmartTour&'+
 			'" data-size="large">'
 			+'</a>'+
 			'<a target="_blank" id="F-'+dataString.divId+'" class="fa faSocial fa-facebook" data="https://www.facebook.com/dialog/share?quote='+dataString.title+'&href=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+dataString.divId+'&picture='+dataString.imgUrl+'&method=share&'+'hashtags=Urasa%2CTravel%2CSmartTour&app_id=1831840850374206"'+
-			'data-size="large" onclick="SocialClick(this)">'+'</a>'+
-			'</span>';
+			'data-size="large" onclick="SocialClick(this)">'+'</a>';
+	divData += '<a target="_blank" class="glyphicon glyphicon-print" title="Print" onclick="PrintElem(this)"/></span>';
 	divData += '</div></div></div></div>';
-
+	
 	divSlideData = '<div class="container">';
 	divSlideData += '<div id="myCarousel" class="carousel slide" data-ride="carousel">';
 //	<!-- Indicators -->
@@ -290,9 +293,7 @@ function htmlFactory(dataString){
 	sliderTag.innerHTML += divSlideData;
 	mainTag.innerHTML += divData;
 }
-function loadMyFunction() {
-	myVar = setTimeout(showPage, 3000);
-}
+
 function storeCoordinate(xVal, yVal) {
 	var coverter = new google.maps.LatLng(xVal,yVal);
 	route_list_Detail.push(coverter);
@@ -327,12 +328,31 @@ function drawMap(){
 	});
 	flightPath.setMap(map);
 	drop(route_list_Detail);
+	
 }
 function drop(route_list) {
 	clearMarkers();
+	var markerStringBuilder = '';
 	for (var i = 0; i < route_list_Detail.length; i++) {
 		addMarkerWithTimeout(route_list_Detail[i], i * 200,i);
+		markerStringBuilder += '&markers=color:red%7C'+reformatPos(route_list_Detail[i]);
 	}
+	srcMap = 'https://maps.googleapis.com/maps/api/staticmap?center='+parseFloat(divJson.location[0].log)+','+parseFloat(divJson.location[0].lug)+'&zoom=16&size=500x500'+
+			markerStringBuilder +'&key='+API_KEY;
+	//mapdiv = '<img src="https://maps.googleapis.com/maps/api/staticmap?center=37.167436,138.92280500000004&zoom=16&size=500x500&markers=color:red%7C37.167436,138.92280500000004&markers=color:red%7C37.16962464650317,138.91980092590336&key=AIzaSyC51n-Mqgn7fbB3bV_4s_YWJIVno6LAZAk"/>';
+	//var mainTag = document.getElementById('content');
+	//divData += '<img  width="700" src="'+srcMap+'" />' 
+	console.log('<img src="'+srcMap+'" />');
+}
+function reformatPos(data){
+	var temp = '';
+	var dS = data.toString();
+	console.log(dS);
+	temp = dS.substring(0);
+	temp = temp.substring(1,temp.length-1);
+	temp = temp.replace(/\s/g, '');
+	console.log(temp);
+	return temp;
 }
 function clearMarkers() {
 	for (var i = 0; i < markersDetail.length; i++) {
@@ -448,3 +468,133 @@ function getParameterByName(name, url) {
 	    if (!results[2]) return '';
 	    return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
+
+
+function PrintElem(elem)
+{
+	
+	var image = document.images[0];
+	var downloadingImage = new Image();
+	downloadingImage.onload = function(){
+	    image.src = this.src;   
+	    //alert('loaded');
+	    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+		mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+		mywindow.document.write('<style>@media print {img { max-width: none !important;}} </style>');
+		mywindow.document.write('</head><body align="center">');
+		mywindow.document.write(writeNewWindow());
+		downloadingImage.height = "500";
+		downloadingImage.width = "500";
+		mywindow.document.body.appendChild(downloadingImage);
+		mywindow.document.write('<br><hr> <div>Thanks you for using TripIt platform. We are looking forward you in <a>www.tripit.tour</a></div>');
+		mywindow.document.write('</body></html>');
+
+		mywindow.document.close(); // necessary for IE >= 10
+		mywindow.focus(); // necessary for IE >= 10*/
+		
+	};
+	downloadingImage.src = srcMap ;
+	//console.log(downloadingImage);
+	
+	return true;
+	
+}
+
+function writeNewWindow(){
+	var dataString = divJson;
+	var infoPath = "";
+	var imgPath = "";
+	var bodyPath = "";
+	
+	infoPath  = '<div class="row">';
+	infoPath  += '<div class="col-md-12">';
+	infoPath  += '<h2 align="left">';
+	infoPath  += dataString.title;
+	infoPath  += '</h2>';
+	infoPath  += '<p align="left">';
+	infoPath  += dataString.longMsg;
+	infoPath  += '<br><br>';
+	infoPath  += '<b>Avaliable Transportation are :</b>&nbsp;';
+	infoPath  += dataString.transport;
+	infoPath  += '</p>';
+	infoPath 
+	infoPath  += '<div></div><hr>';
+    infoPath 
+	infoPath  += '<div class="row">';
+	infoPath  += '<div class="col-md-4">';
+	infoPath  += '<b>Posted by :</b>';
+	infoPath  += dataString.authorName;
+	infoPath  += '&nbsp; <img src='+dataString.authProPic+' class="img-circle" id="authorPhotoTumb"></img>';
+	infoPath  += '<br>';
+	infoPath  += '</div>';
+	infoPath  += '<div class="col-md-4">'
+	infoPath  += '<b>Contact to blogger :</b>';
+	infoPath  += dataString.authorMail;
+	infoPath  += '<br>';
+	infoPath  += dataString.date;
+	infoPath  += '</div>';
+	
+	//infoPath  += downloadingImage;
+	//infoPath  += '<img src="https://maps.googleapis.com/maps/api/staticmap?center=37.167436,138.92280500000004&zoom=16&size=500x500&markers=color:red%7C37.167436,138.92280500000004&markers=color:red%7C37.16962464650317,138.91980092590336&key=AIzaSyC51n-Mqgn7fbB3bV_4s_YWJIVno6LAZAk" />';
+	infoPath  += '</div></div></div><br>';
+	
+	imgPath = '<div class="container">';
+	imgPath += '<div id="myCarousel" class="carousel slide" data-ride="carousel">';
+//	imgPathors -->
+
+
+//	<!-- Wrapper for slides -->
+	divSlideData += '<div class="carousel-inner">';
+	
+	for (var i = 0; i < dataString.imgUrl.links.length; i++) {
+	if(i==0){
+	imgPath += ' <div class="item active">';
+	imgPath += '<img src="'+dataString.imgUrl.links[i]+'" alt="Los Angeles" style="width:70%;height:300px;overflow: hidden;">';
+	imgPath += '</div><br>';
+	}else{
+		imgPath += ' <div class="item">';
+		imgPath += '<img src="'+dataString.imgUrl.links[i]+'" alt="Los Angeles" style="width:70%;height:300px;overflow: hidden;">';
+		imgPath += '</div><br>';
+	}
+	}
+
+	
+	
+	imgPath += '</div>';
+
+//	<!-- Left and right controls -->
+	imgPath+= '</div>';
+	imgPath+= '</div>';
+	
+	bodyPath += infoPath;
+	bodyPath += imgPath;
+	
+	return bodyPath;
+	
+}
+
+//divJson = {
+//"divId":divId,
+//"location" : JSON.parse(locTamp),
+//"longMsg" : longMsg,
+//"shortMsg" : shortMsg,
+//"imgUrl" : imgUrl,
+//"aboutAuthor" : aboutAuthor,
+//"authorMail" : authorMail,
+//"authorName" : authorName,
+//"authProPic" : authProPic,
+//"authContact" : authContact,
+//"transport" : transport,
+//"season" : transport,
+//"title": title,
+//"date" : postDate
+//};
+
+//var pdf = new jsPDF('p', 'mm', 'a4');
+////pdf.textAlign( {align: "center"}, 0, _y);
+//pdf.setFontSize(20);
+//pdf.setFont("times");
+//pdf.setFontType("bold");
+//pdf.setTextColor(255, 0, 0);
+//pdf.text(10, 10, divJson.longMsg);
+//pdf.save(document.title+'.pdf');
