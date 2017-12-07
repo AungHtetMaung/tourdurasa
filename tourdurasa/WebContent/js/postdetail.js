@@ -86,7 +86,7 @@ function buildObjDetail(response){
 	var shortMsg = '';
 	var title = '';
 	var location = [];
-	var aboutAuthor = '';
+	var aboutRest = '';
 	var authorMail = '';
 	var authorName = '';
 	var longMsg = '';
@@ -98,6 +98,7 @@ function buildObjDetail(response){
 	var postDate = '';
 	var divSlideData = '';
 	var divData = '';
+	var aboutHotel = '';
 	if (range.values.length > 0) {
 		for (i = 0; i < range.values.length; i++) {
 			var row = range.values[i];
@@ -127,9 +128,9 @@ function buildObjDetail(response){
 					case 3:
 						imgUrl = BuiltJsonImg(row[j]);
 						break;
-						//About Author
+						//About Restaurent
 					case 4:
-						aboutAuthor =  row[j];
+						aboutRest =  row[j];
 						break;
 						//About Author email
 					case 5:
@@ -163,6 +164,10 @@ function buildObjDetail(response){
 					case 12:
 						postDate =  row[j];
 						break;
+						//About Hotel
+					case 13:
+						aboutHotel =  row[j];
+						break;
 					}
 				}
 				//location.push(locTamp);
@@ -172,7 +177,7 @@ function buildObjDetail(response){
 						"longMsg" : longMsg,
 						"shortMsg" : shortMsg,
 						"imgUrl" : imgUrl,
-						"aboutAuthor" : aboutAuthor,
+						"aboutRest" : aboutRest,
 						"authorMail" : authorMail,
 						"authorName" : authorName,
 						"authProPic" : authProPic,
@@ -180,7 +185,8 @@ function buildObjDetail(response){
 						"transport" : transport,
 						"season" : transport,
 						"title": title,
-						"date" : postDate
+						"date" : postDate,
+						"aboutHotel" : aboutHotel
 				};
 				//console.log(divJson);
 				htmlFactory(divJson)
@@ -215,7 +221,15 @@ function htmlFactory(dataString){
 	divData += '<br><br>';
 	divData += '<b>Avaliable Transportation :</b>&nbsp;';
 	divData += dataString.transport;
-	divData += '<img src='+srcMap+'/>';
+	
+	divData += '<br><br>';
+	divData += '<b>Restaurent :</b>&nbsp;';
+	divData += dataString.aboutRest;
+	
+	divData += '<br><br>';
+	divData += '<b>Hotel :</b>&nbsp;';
+	divData += dataString.aboutHotel;
+	
 	divData += '</p>';
 	divData += '</article>';
 	divData += '<div></div><hr>';
@@ -242,6 +256,7 @@ function htmlFactory(dataString){
 			+'</a>'+
 			'<a target="_blank" id="F-'+dataString.divId+'" class="fa faSocial fa-facebook" data="https://www.facebook.com/dialog/share?quote='+dataString.title+'&href=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+dataString.divId+'&picture='+dataString.imgUrl+'&method=share&'+'hashtags=Urasa%2CTravel%2CSmartTour&app_id=1831840850374206"'+
 			'data-size="large" onclick="SocialClick(this)">'+'</a>';
+	divData += '<a  class="glyphicon glyphicon-thumbs-up" /></span>';
 	divData += '<a target="_blank" class="glyphicon glyphicon-print" title="Print" onclick="PrintElem(this)"/></span>';
 	divData += '</div></div></div></div>';
 	
@@ -335,8 +350,9 @@ function drop(route_list) {
 	clearMarkers();
 	var markerStringBuilder = '';
 	for (var i = 0; i < route_list_Detail.length; i++) {
-		addMarkerWithTimeout(route_list_Detail[i], i * 200,i);
-		markerStringBuilder += '&markers=color:red%7C'+reformatPos(route_list_Detail[i]);
+		label = labelsDetail[labelIndexDetail++ % labelsDetail.length];
+		addMarkerWithTimeout(route_list_Detail[i], i * 200,label);
+		markerStringBuilder += '&scale=2&markers=color:red%7Clabel:'+label+'%7C'+reformatPos(route_list_Detail[i]);
 	}
 	srcMap = 'https://maps.googleapis.com/maps/api/staticmap?center='+parseFloat(divJson.location[0].log)+','+parseFloat(divJson.location[0].lug)+'&zoom=16&size=500x500'+
 			markerStringBuilder +'&key='+API_KEY;
@@ -368,7 +384,7 @@ function addMarkerWithTimeout(position, timeout, label) {
 			position: position,
 			map: map,
 			animation: google.maps.Animation.DROP,
-			label: labelsDetail[labelIndexDetail++ % labelsDetail.length]
+			label: label
 		});
 		//alert(labelIndex);
 		marker.addListener('click', function() {
@@ -519,8 +535,17 @@ function writeNewWindow(){
 	infoPath  += '<br><br>';
 	infoPath  += '<b>Avaliable Transportation :</b>&nbsp;';
 	infoPath  += dataString.transport;
+	
+	infoPath  += '<br><br>';
+	infoPath  += '<b>Restaurent :</b>&nbsp;';
+	infoPath  += dataString.aboutRest;
+	
+	infoPath  += '<br><br>';
+	infoPath  += '<b>Hotel :</b>&nbsp;';
+	infoPath  += dataString.aboutHotel;
+	
 	infoPath  += '</p>';
-	infoPath 
+
 	infoPath  += '<div></div><hr>';
     infoPath 
 	infoPath  += '<div class="row">';
@@ -529,12 +554,12 @@ function writeNewWindow(){
 	infoPath  += dataString.authorName;
 	infoPath  += '&nbsp; <img src='+dataString.authProPic+' class="img-circle" id="authorPhotoTumb"></img>';
 	infoPath  += '<br>';
+	infoPath  += dataString.date;
 	infoPath  += '</div>';
 	infoPath  += '<div class="col-md-4">'
 	infoPath  += '<b>Contact to blogger :</b>';
 	infoPath  += dataString.authorMail;
-	infoPath  += '<br>';
-	infoPath  += dataString.date;
+	
 	infoPath  += '</div>';
 	
 	//infoPath  += downloadingImage;
@@ -552,11 +577,11 @@ function writeNewWindow(){
 	for (var i = 0; i < dataString.imgUrl.links.length; i++) {
 	if(i==0){
 	imgPath += ' <div class="item active">';
-	imgPath += '<img src="'+dataString.imgUrl.links[i]+'" alt="Los Angeles" style="width:70%;height:300px;overflow: hidden;">';
+	imgPath += '<img src="'+dataString.imgUrl.links[i]+'" alt="Los Angeles" style="width:50%;height:300px;overflow: hidden;">';
 	imgPath += '</div><br>';
 	}else{
 		imgPath += ' <div class="item">';
-		imgPath += '<img src="'+dataString.imgUrl.links[i]+'" alt="Los Angeles" style="width:70%;height:300px;overflow: hidden;">';
+		imgPath += '<img src="'+dataString.imgUrl.links[i]+'" alt="Los Angeles" style="width:50%;height:300px;overflow: hidden;">';
 		imgPath += '</div><br>';
 	}
 	}
@@ -582,7 +607,7 @@ function writeNewWindow(){
 //"longMsg" : longMsg,
 //"shortMsg" : shortMsg,
 //"imgUrl" : imgUrl,
-//"aboutAuthor" : aboutAuthor,
+//"aboutRest" : aboutRest,
 //"authorMail" : authorMail,
 //"authorName" : authorName,
 //"authProPic" : authProPic,

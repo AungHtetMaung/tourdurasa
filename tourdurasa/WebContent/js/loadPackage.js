@@ -83,7 +83,7 @@
     	  var shortMsg = '';
     	  var title = '';
     	  var location = [];
-    	  var aboutAuthor = '';
+    	  var aboutRest = '';
     	  var authorMail = '';
     	  var authorName = '';
     	  var longMsg = '';
@@ -123,7 +123,7 @@
             	  		break;
             	  		//About Author
             	  	case 4:
-            	  		aboutAuthor =  row[j];
+            	  		aboutRest =  row[j];
             	  		break;
             	  	//About Author email
             	  	case 5:
@@ -162,7 +162,7 @@
             		  "longMsg" : longMsg,
             		  "shortMsg" : shortMsg,
             		  "imgUrl" : imgUrl,
-            		  "aboutAuthor" : aboutAuthor,
+            		  "aboutRest" : aboutRest,
             		  "authorMail" : authorMail,
             		  "authorName" : authorName,
             		  "authProPic" : authProPic,

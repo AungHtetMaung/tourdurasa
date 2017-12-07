@@ -159,3 +159,45 @@ body {
   color: white;
 }
 
+
+
+.sidebar{
+  background: purple;
+  width: 200px;
+  height: 300px;
+  padding: 20px;
+  flex-shrink: 0;
+  overflow: visible;
+  position: sticky;
+  left: -200px;
+}
+
+.sidebar .handle{
+  height: 24px;
+  width: 20px;
+  position: absolute;
+  right: -20px;
+  top: 0;
+  background: purple;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  padding-left: 3px;
+  cursor: pointer;
+}
+
+
+.site{
+  display: flex;
+}
+
+.sticker{
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 10%;
+    height: 10%;
+    z-index:99;
+}
+
+

@@ -42,31 +42,14 @@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="js/locationpicker.jquery.js"></script>
 <script src="js/gmapcontroller.js"></script>
-
+<script src="js/jquery.sticky.js"></script>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 <script>
-	$.validate({
-		form : '#registration-form',
-		modules : 'security',
-		onError : function($form) {
-			alert('Validation of form ' + $form.attr('id') + ' failed!');
-		},
-		onSuccess : function($form) {
-			alert('The form ' + $form.attr('id') + ' is valid!');
-			return false; // Will stop the submission of the form
-		},
-		onValidate : function($form) {
-			return {
-				element : $('#some-input'),
-				message : 'This input has an invalid value for some reason'
-			}
-		},
-		onElementValidate : function(valid, $el, $form, errorMess) {
-			console.log('Input ' + $el.attr('name') + ' is '
-					+ (valid ? 'VALID' : 'NOT VALID'));
-		}
-	});
+	$(document).ready(function(){
+	    $("#sticker").sticky({topSpacing:0});
+	    
+	  });
 </script>
 <link rel="shortcut icon" href="./img/Tripit.png" /><title>TripIt</title>
 
@@ -154,8 +137,7 @@
 	<div class="container">
 		<div class="row centered">
 			<p style="font-size: 1.5em">
-				Link the photo with google map,upload the photo in google map and
-				paste the link in the text box.
+				Use some photos to provide more information about your trip. You can upload more than one photo links by tab key.
 				<button type="button" class="btn btn-primary" id='goToGoogle'>Browse</button>
 			</p>
 			<span id="linkBox"></span>
@@ -164,8 +146,8 @@
 		</div>
 	</div>
 	<hr>
-
 	<div class="container">
+		
 		<div class="row centered">
 			<span style="font-size: 1.5em">Trip Title</span>
 		</div>
@@ -174,11 +156,23 @@
 				id='title' />
 		</div>
 		<div class="row centered">
-			<span style="font-size: 1.5em">Tell the story about the trip</span>
+			<span style="font-size: 1.5em">Tell the story about the trip. Do Not forget to use pin point reference for more interactive.</span>
 		</div>
 		<div class="row centered">
 			<textarea class="form-control" rows="10" cols='100'
 				data-validation="required" id='story'></textarea>
+		</div>
+		<div class="row centered">
+			<p style="font-size: 1.5em">Is there some nearby restaurant?</p>
+		</div>
+		<div class="row centered">
+			<textarea class="form-control" rows="5" cols='100' id='aboutRest'></textarea>
+		</div>
+		<div class="row centered">
+			<p style="font-size: 1.5em">Is there some nearby hotel?</p>
+		</div>
+		<div class="row centered">
+			<textarea class="form-control" rows="5" cols='100' id='aboutHotel'></textarea>
 		</div>
 		<div class="row centered">
 			<span style="font-size: 1.5em">That best season is </span> <select
@@ -192,6 +186,7 @@
 		</div>
 	</div>
 
+	
 	<hr>
 	<div class="container" id="trans">
 		<div class="row centered">
@@ -244,14 +239,14 @@
 	</div>
 
 	<hr>
-	<div class="container">
+	<!-- <div class="container">
 		<div class="row centered">
 			<p style="font-size: 1.5em">Tell me little more about you,</p>
 		</div>
 		<div class="row centered">
-			<textarea class="form-control" rows="5" cols='100' id='aboutAuthor'></textarea>
+			<textarea class="form-control" rows="5" cols='100' id='aboutRest'></textarea>
 		</div>
-	</div>
+	</div> -->
 
 	<hr>
 	<div class="container">
@@ -279,7 +274,7 @@
 			<button id="signout-button" onclick="handleSignOutClick()">Sign
 				out</button> -->
 
-		</div>
+		</div><br>
 	</div>
 	<!-- Selection Map -->
 	<input type="text" id="somecomponent-lat" class='location' />
@@ -409,7 +404,7 @@
 		function loadData() {
 			//console.log("loadData");
 			story = $('#story').val();
-			aboutAuthor = $('#aboutAuthor').val();
+			aboutRest = $('#aboutRest').val();
 			email = $('#email').text();
 			authorName = $('#authorName').text();
 			authorPhoto = $('#authorPhotoTumb').attr('src');
@@ -417,19 +412,21 @@
 			season = $('#season').val();
 			title = $('#title').val();
 			date = new Date();
+			aboutHotel = $('#aboutHotel').val();
 			//console.log("loaded");
 			valueRangeBody = {
 				values : [ [ rowIdSheet.toString(), JSON.stringify(storeLoc),
-						story, media.toString(), aboutAuthor, email, authorName,
+						story, media.toString(), aboutRest, email, authorName,
 						authorPhoto, connectionAuthor, tranAvai.toString(),
-						season, title, date ] ]
+						season, title, date,aboutHotel ] ]
 			};
 			//console.log(valueRangeBody);
 			return valueRangeBody;
 		}
 		function validate() {
 			if ($('#story').val() == "" 
-					|| $('#aboutAuthor').val() == ""
+					|| $('#aboutRest').val() == ""
+					|| $('#aboutHotel').val() == ""
 					|| $('#email').text() == "" || $('#authorName').text()==""
 					|| $('#authorPhotoTumb').attr('src') == ""
 					|| $('#connectionAuthor').val() == ""
@@ -476,6 +473,9 @@
      		   }
         	
         }
+		function sidebar(){
+			  window.scrollTo(0, 0);
+			}
 	</script>
 	<script async defer src="https://apis.google.com/js/api.js"></script>
 </body>
