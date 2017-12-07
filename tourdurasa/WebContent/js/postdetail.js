@@ -204,23 +204,24 @@ function htmlFactory(dataString){
 	var mainTag = document.getElementById('content');
 	var sliderTag = document.getElementById('slider');
 
-	divData = '<div class="row">';
-	divData += '<div class="col-md-12">';
-	divData += '<h2>';
+	divData = '<div class="row" id="mainBlog">';
+	divData += '<div class="col-md-12 bd-callout">';
+	divData += '<h2 class="post-heading">';
 	divData += dataString.title;
 	divData += '</h2>';
+	divData += '<article>';
 	divData += '<p>';
 	divData += dataString.longMsg;
 	divData += '<br><br>';
-	divData += '<b>Avaliable Transportation are :</b>&nbsp;';
+	divData += '<b>Avaliable Transportation :</b>&nbsp;';
 	divData += dataString.transport;
 	divData += '<img src='+srcMap+'/>';
 	divData += '</p>';
-	
+	divData += '</article>';
 	divData += '<div></div><hr>';
 
 	divData += '<div class="row">';
-	divData += '<div class="col-md-4">';
+	divData += '<div class="col-md-4 ">';
 	divData += '<b>Posted by :</b>';
 	divData += dataString.authorName;
 	divData += '&nbsp; <img src='+dataString.authProPic+' class="img-circle" id="authorPhotoTumb"></img>';
@@ -481,6 +482,7 @@ function PrintElem(elem)
 	    //alert('loaded');
 	    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
 		mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+		mywindow.document.write('<link href="css/blog.css" rel="stylesheet">');
 		mywindow.document.write('<style>@media print {img { max-width: none !important;}} </style>');
 		mywindow.document.write('</head><body align="center">');
 		mywindow.document.write(writeNewWindow());
@@ -507,7 +509,7 @@ function writeNewWindow(){
 	var imgPath = "";
 	var bodyPath = "";
 	
-	infoPath  = '<div class="row" style="margin-left:20px;margin-right:20px;">';
+	infoPath  = '<div class="row" id="mainBlog" style="margin-left:20px;margin-right:20px;">';
 	infoPath  += '<div class="col-md-12">';
 	infoPath  += '<h2 align="left">';
 	infoPath  += dataString.title;
@@ -515,7 +517,7 @@ function writeNewWindow(){
 	infoPath  += '<p align="left">';
 	infoPath  += dataString.longMsg;
 	infoPath  += '<br><br>';
-	infoPath  += '<b>Avaliable Transportation are :</b>&nbsp;';
+	infoPath  += '<b>Avaliable Transportation :</b>&nbsp;';
 	infoPath  += dataString.transport;
 	infoPath  += '</p>';
 	infoPath 

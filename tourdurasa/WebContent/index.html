@@ -9,9 +9,10 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<link rel="shortcut icon" href="./img/Tripit.png" /><title>TripIt</title>
+<link rel="shortcut icon" href="./img/Tripit.png" />
+<title>TripIt</title>
 
-
+<link href="css/blog.css" rel="stylesheet">
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -20,102 +21,144 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- Custom styles for this template -->
-<link href="css/1-col-portfolio.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://connect.facebook.net/en_US/all.js"></script>
-<script>
-FB.init({
-    appId      : 1831840850374206,
-    xfbml      : true,
-    version    : 'v2.11'
-  });
-</script>
+<!-- Custom fonts for this template -->
+<link href="vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <style>
+  /* Autocomplete
+----------------------------------*/
+.ui-autocomplete { position: absolute; cursor: default; }       
+.ui-autocomplete-loading { background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat; }
+
+/* workarounds */
+* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
+/* Menu
+----------------------------------*/
+.ui-menu {
+        list-style:none;
+        padding: 10px;
+        margin: 0;
+        display:block;
+        width:227px;
+        background: white;
+}
+.ui-menu .ui-menu {
+        margin-top: -3px;
+}
+.ui-menu .ui-menu-item {
+        margin:0;
+        padding: 0;
+        width: 200px;
+}
+.ui-menu .ui-menu-item a {
+        text-decoration:none;
+        display:block;
+        padding:.2em .4em;
+        line-height:1.5;
+        zoom:1;
+}
+.ui-menu .ui-menu-item a.ui-state-hover,
+.ui-menu .ui-menu-item a.ui-state-active {
+        margin: -1px;
+}
+  </style>
 </head>
 
 <body>
 	<script type="text/javascript"
 		src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 	<script src="js/gtranslate.js"></script>
-	<script src="js/loadPackage.js"></script>
-
+	<script>
+  $( function() {
+	  
+    var availableTags = [
+	  'Agano (Suibara)	阿賀野市       ',
+	  'Gosen (- Muramatsu)	五泉市    ',
+	  'Itoigawa	糸魚川市               ',
+	  'Jōetsu	上越市                ',
+	  'Kamo	加茂市                    ',
+	  'Kashiwazaki	柏崎市            ',
+	  'Minamiuonuma (Muika)	南魚沼市   ',
+	  'Mitsuke	見附市                ',
+	  'Murakami	村上市                ',
+	  'Myōkō (Arai)	妙高市            ',
+	  'Nagaoka	長岡市                ',
+	  'Niigata	新潟市                ',
+	  'Ojiya	小千谷市               ',
+	  'Sado	佐渡市                    ',
+	  'Sanjō	三条市                ',
+	  'Shibata	新発田市               ',
+	  'Tainai (Nakajō)	胎内市        ',
+	  'Tōkamachi	十日町市           ',
+      'Tsubame	燕市               ',
+      'Uonuma (Koide)	魚沼市'
+      ];
+    $("#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+  </script>
+ 
 
 	<!-- Navigation -->
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html"><span style="font-size: 2em">T</span>rip
-						<small><span style="font-size: 2em">I</span>t</small></a>
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#myNavbar">
-						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="ctour.html">Share a tour</a></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">Seasonal<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="ctour.html">Winter</a></li>
-							<li><a href="#">Spring</a></li>
-							<li><a href="#">Summer</a></li>
-							<li><a href="#">Autumn</a></li>
-							<li><a href="#">12 months enjoy</a></li>
-						</ul></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a href="contact.html">About</a></li>
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
+		id="mainNav">
+		<div class="container">
+			<a class="navbar-brand" href="index.html">Start Bootstrap</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				Menu <i class="fa fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="index.html">Home</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="about.html">About</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="post.html">Sample
+							Post</a></li>
+					<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a>
+					</li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><span id='google_translate_element'></span></li>
-				</ul>
-				</div>
 			</div>
 		</div>
 	</nav>
 	<!-- Navigation -->
 
-	<!-- Page Content -->
-	<div class="container">
-
-		<!-- Page Heading -->
-		<h5 class="my-4">Our recommended tour are listed below,</h5>
-		<div id='packageContainer' class='container'>
-			<div id="loader"></div>
+	<header class="masthead"
+		style="background-image: url('./img/home.jpg')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="site-heading">
+						<h1>Trip It</h1>
+						<span class="subheading">Where do you wanna go?</span><br>
+						<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Search for..." id="tags"> <span
+							class="input-group-btn" >
+							<a class="btn btn-secondary" href="index.html">Go!</a>
+						</span>
+					</div>
+					</div>
+				</div>
+			</div>
 		</div>
+	</header>
 
-		<!-- Pagination
-      <ul class="pagination justify-content-center">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-          </a>
-        </li>
-      </ul>
-
-    </div>
-    /.container -->
-	</div>
 	<!-- Footer -->
 	<div class="footer">
 		<p class="m-0 text-center text-white">Copyright &copy; SnowBit
@@ -123,13 +166,6 @@ FB.init({
 	</div>
 	<!-- /.container -->
 
-	<!-- Bootstrap core JavaScript -->
-	<!-- <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-	<script async defer src="https://apis.google.com/js/api.js"
-		onload="this.onload=function(){};handleClientLoadPackage()"
-		onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
 </body>
 
 </html>
