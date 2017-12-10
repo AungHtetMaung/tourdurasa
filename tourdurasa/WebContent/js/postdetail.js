@@ -30,6 +30,7 @@ var signoutButton = document.getElementById('signout-button');
 
 var divJson = {};
 var srcMap = "" ;
+var qrCode= "";
 /**
  *  On load, called to load the auth2 library and API client library.
  */
@@ -209,7 +210,7 @@ function buildObjDetail(response){
 function htmlFactory(dataString){
 	var mainTag = document.getElementById('content');
 	var sliderTag = document.getElementById('slider');
-
+	
 	divData = '<div class="row" id="mainBlog">';
 	divData += '<div class="col-md-12 bd-callout">';
 	divData += '<h2 class="post-heading">';
@@ -306,7 +307,19 @@ function htmlFactory(dataString){
 	divSlideData += '</div>';
 
 	sliderTag.innerHTML += divSlideData;
+	
+//	For UpDate
+	qrString = "http://ews.iuj.ac.jp/f17/1f/postdetail.html?divId="+dataString.divId;
+	console.log(qrString);
 	mainTag.innerHTML += divData;
+		var $div = $("<div>", {id: "foo", "class": "a"});
+		qrCode =  jQuery($div).qrcode({
+		text : qrString,
+		 render: 'canvas',
+		ecLevel: 'H',
+		width: 100,
+	    height: 100
+	});
 }
 
 function storeCoordinate(xVal, yVal) {
@@ -493,8 +506,7 @@ function PrintElem(elem)
 	var image = document.images[0];
 	var downloadingImage = new Image();
 	downloadingImage.onload = function(){
-	    image.src = this.src;   
-	    //alert('loaded');
+	    image.src = this.src; 
 	    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
 		mywindow.document.write('<html><head><title>' + document.title  + '</title>');
 		mywindow.document.write('<link href="css/blog.css" rel="stylesheet">');
@@ -504,6 +516,7 @@ function PrintElem(elem)
 		downloadingImage.height = "500";
 		downloadingImage.width = "500";
 		mywindow.document.body.appendChild(downloadingImage);
+		mywindow.document.getElementById("headTitle").appendChild( qrCode[0] );
 		mywindow.document.write('<br><hr> <div>Thanks you for using TripIt platform. We are looking forward you in <a>www.tripit.tour</a></div>');
 		mywindow.document.write('</body></html>');
 
@@ -529,6 +542,9 @@ function writeNewWindow(){
 	infoPath  += '<h2 align="left">';
 	infoPath  += dataString.title;
 	infoPath  += '</h2>';
+	infoPath  += '<div class="row">';
+	infoPath  += '<div class="col-md-6">';
+//	For UpDate	
 	infoPath  += '<p align="left">';
 	infoPath  += dataString.longMsg;
 	infoPath  += '<br><br>';
@@ -542,11 +558,14 @@ function writeNewWindow(){
 	infoPath  += '<br><br>';
 	infoPath  += '<b>Hotel :</b>&nbsp;';
 	infoPath  += dataString.aboutHotel;
+	infoPath		+= "</div>";
+	infoPath  += '<div class="col-md-6" id = "headTitle">';
 	
+	infoPath		+= "</div>";
+	infoPath		+= "</div>";
 	infoPath  += '</p>';
-
+//Till Here
 	infoPath  += '<div></div><hr>';
-    infoPath 
 	infoPath  += '<div class="row">';
 	infoPath  += '<div class="col-md-4">';
 	infoPath  += '<b>Posted by :</b>';

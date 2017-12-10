@@ -16,10 +16,11 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<script type="text/javascript" src="js/qrcode.js"></script>
+
 <script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- Custom styles for this template -->
 <link href="css/1-col-portfolio.css" rel="stylesheet">
 <link href="css/print.css" rel="stylesheet" media="print">
@@ -47,19 +48,21 @@
 <script src="js/gmapcontroller.js"></script>
 <script src="https://connect.facebook.net/en_US/all.js"></script>
 <script>
-FB.init({
-    appId      : 1831840850374206,
-    xfbml      : true,
-    version    : 'v2.11'
-  });
+	FB.init({
+		appId : 1831840850374206,
+		xfbml : true,
+		version : 'v2.11'
+	});
+	
 </script>
 <style>
 .glyphicon {
-    font-size: 50px;
-    padding-left: 1em;
+	font-size: 50px;
+	padding-left: 1em;
 }
 </style>
-<link rel="shortcut icon" href="./img/Tripit.png" /><title>TripIt</title>
+<link rel="shortcut icon" href="./img/Tripit.png" />
+<title>TripIt</title>
 
 </head>
 <body>
@@ -71,8 +74,9 @@ FB.init({
 		<div class="container-fluid">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html"><span style="font-size: 2em">T</span>rip
-						<small><span style="font-size: 2em">I</span>t</small></a>
+					<a class="navbar-brand" href="index.html"><span
+						style="font-size: 2em">T</span>rip <small><span
+							style="font-size: 2em">I</span>t</small></a>
 					<button type="button" class="navbar-toggle" data-toggle="collapse"
 						data-target="#myNavbar">
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
@@ -80,42 +84,46 @@ FB.init({
 					</button>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li><a href="home.html">Home</a></li>
-					<li class="active"><a href="ctour.html">Share a tour</a></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">Seasonal<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="ctour.html">Winter</a></li>
-							<li><a href="#">Spring</a></li>
-							<li><a href="#">Summer</a></li>
-							<li><a href="#">Autumn</a></li>
-							<li><a href="#">12 months enjoy</a></li>
-						</ul></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a href="contact.html">About</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><span id='google_translate_element'></span></li>
-				</ul>
+					<ul class="nav navbar-nav">
+						<li><a href="home.html">Home</a></li>
+						<li class="active"><a href="ctour.html">Share a tour</a></li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Seasonal<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="ctour.html">Winter</a></li>
+								<li><a href="#">Spring</a></li>
+								<li><a href="#">Summer</a></li>
+								<li><a href="#">Autumn</a></li>
+								<li><a href="#">12 months enjoy</a></li>
+							</ul></li>
+						<li><a href="contact.html">Contact</a></li>
+						<li><a href="contact.html">About</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><span id='google_translate_element'></span></li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</nav>
 	<!-- Navigation -->
 	<div class="container">
-	<div class="row" id="content">
-	</div></div><br>
-	<div class="container" id="slider">
-	</div><br>
+		<div class="row" id="content"></div>
+	</div>
+	<br>
+	<div class="container" id="slider"></div>
+	<br>
 	<div class="row mapdiv" id='map'>
-			<div class="col-6 col-md-8">
-				<div id="pano" class="map"></div>
-			</div>
-			<div class="col-6 col-md-4">
-				<div id="somecomponent2" class="map"></div>
-			</div>
-	</div>	
+		<div class="col-6 col-md-8">
+			<div id="pano" class="map"></div>
+		</div>
+		<div class="col-6 col-md-4">
+			<div id="somecomponent2" class="map"></div>
+		</div>
+	</div>
+<!-- For Update -->
+<script type="text/javascript" src="js/jquery.qrcode.js"></script>
+<script type="text/javascript" src="js/qrcode.js"></script>
 	<!-- Footer -->
 	<div class="footer">
 		<p class="m-0 text-center text-white">Copyright &copy; SnowBit
@@ -123,8 +131,9 @@ FB.init({
 	</div>
 	<!-- /.container -->
 	<script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoadPackageDetail()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
+		onload="this.onload=function(){};handleClientLoadPackageDetail()"
+		onreadystatechange="if (this.readyState === 'complete') this.onload()">
+		
+	</script>
 </body>
 </html>
