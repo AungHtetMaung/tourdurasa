@@ -246,7 +246,6 @@ function htmlFactory(dataString){
 	divData += '<b>Contact to blogger :</b>';
 	divData += dataString.authorMail;
 	divData += '</div>';
-	divData += '<img width="700" src='+srcMap+'/>';
 	divData += '<div class="col-md-4">'
 	divData += '<span><a target="_blank" class="fa faSocial fa-twitter" href="https://twitter.com/intent/tweet?text='+dataString.title+
 			'&url=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+dataString.divId+
