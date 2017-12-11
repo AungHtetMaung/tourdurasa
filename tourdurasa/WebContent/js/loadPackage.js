@@ -184,7 +184,10 @@
               htmlFatory += '<span class="fa fa-star checked"></span>';
               htmlFatory += '<span class="fa fa-star checked"></span>';
               htmlFatory += '<span class="fa fa-star checked"></span>';
-              htmlFatory += '<p class= "card-body">'+StoryTrimer(shortMsg)+'......</p>';
+              //for update
+              htmlFatory += '<p class= "card-body">';
+              htmlFatory += StoryTrimer(shortMsg);
+              htmlFatory += '.....</p>';
               htmlFatory += '<a class="btn btn-primary" href="./postdetail.html?divId='+divId+'" id="'+divId+'">Read More..</a>';
               htmlFatory += '<span><a target="_blank" class="fa faSocial fa-twitter" href="https://twitter.com/intent/tweet?text='+title+
               				'&url=http://ews.iuj.ac.jp/i17/free/tourdurasa/postdetail.html?divId='+divId+
@@ -207,6 +210,11 @@
           }
     	  
       }
+      // For update
+      function gabi_content(text) {
+    	  text = text.replace(/<[^>]*>/g, "")
+    	    return text;
+    	}
       function loadMyFunction() {
     	    myVar = setTimeout(showPage, 3000);
     	}
@@ -284,8 +292,10 @@
     	   var step2 = imgArrayToJson(step1);
     	   return step2;
       }
+      //For update
       function StoryTrimer(data){
-    	  	step1 = data.split(" ",100);
+    	    step1 =gabi_content(data);
+    	  	step1 = step1.split(" ",100);
     	  	return step1.join(" ");
       }
      
